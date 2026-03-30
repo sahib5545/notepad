@@ -1,0 +1,19 @@
+workflows:
+  ios-build:
+    name: iOS Build
+    environment:
+      xcode: latest
+    scripts:
+      - name: Show Xcode version
+        script: xcodebuild -version
+      - name: Build unsigned iOS app
+        script: |
+          xcodebuild \
+            -project notepad.xcodeproj \
+            -scheme notepad \
+            -sdk iphoneos \
+            -configuration Release \
+            CODE_SIGNING_ALLOWED=NO \
+            clean build
+    artifacts:
+      - /tmp/xcodebuild_logs/*.log
